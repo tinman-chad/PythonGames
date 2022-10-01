@@ -26,7 +26,7 @@ class ScoreKeeper:
         self.current_display_name = ''
         self.new_game_text = new_game_text
         self.current_page = 0
-        #make sure the talbes are set up for score keeping.
+        #make sure the tables are set up for score keeping.
         #yes, I know I should have created a local variable for the clean title, maybe later.
         self.dbExecute(f"CREATE TABLE IF NOT EXISTS Games (GameId integer PRIMARY KEY AUTOINCREMENT, Title text NOT NULL)")
         self.dbExecute(f"CREATE TABLE IF NOT EXISTS Scores (ScoreId integer PRIMARY KEY AUTOINCREMENT, GameId integer NOT NULL, UserName text NOT NULL, Score integer NOT NULL)")
