@@ -19,6 +19,7 @@ class Ship(Sprite):
         self.score = 0
         self.starting_pos = pos
         self.time_to_life = 0
+        self.play_time = 0
 
 		# timer
         self.can_shoot = True
@@ -36,6 +37,7 @@ class Ship(Sprite):
     def reset(self):
         self.lives -= 1
         self.time_to_life = get_ticks() + 1000
+        self.play_time = self.time_to_life + 1000 #1 second to start playing incase of meteor right on top of spawn.
 
     def laser_timer(self):
         if not self.can_shoot or self.time_to_life > 0:
@@ -57,6 +59,8 @@ class Ship(Sprite):
             Laser(laser_group, self.rect.midtop, self.laser_image, self.laser_sound, self.explosion_sound, 600, self.meteor_group)
 
     def meteor_collision(self, meteor_group):
+        if self.play_time >= get_ticks():
+            return
         if spritecollide(self, meteor_group, True, collide_mask) and self.lives >= 0:
             self.explosion_sound.play()
             self.reset()
