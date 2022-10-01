@@ -127,7 +127,7 @@ class ScoreKeeper:
         '''Dopamine required but too hard to get?  Try removing the competition.'''
         self.dbExecute(f'Delete from Scores where GameId = {self.game_id}; VACUUM;')
     
-    def draw_input(self, screen: Surface, current_score: int = 0, key_pressed: str = ''):
+    def draw_input(self, screen: Surface, current_score: int = 0, key_pressed: str = '') -> bool:
         #using the internal display name for remembering the current player so they can just hit enter to save the score.
         if key_pressed == '\b':
             self.current_display_name = self.current_display_name[:-1]
@@ -135,9 +135,10 @@ class ScoreKeeper:
             self.current_display_name += key_pressed
 
         if key_pressed == '\r':
+            print(f'saving score for: {self.current_display_name}')
             highestScore = self.saveHighScore(self.current_display_name, current_score)
             self.draw_scores(screen, page=0, current_score=current_score)
-            return
+            return True
 
         thisScore = self.font.render(f"Your High Score: {current_score}", 1, self.font_color)
         lineHeight = thisScore.get_height()/2
@@ -149,6 +150,7 @@ class ScoreKeeper:
 
         userName = self.font.render(f'Name: {self.current_display_name}', 1, self.font_color)
         screen.blit(userName, (line_left, current_line_top))
+        return False
 
     def draw_scores(self, screen: Surface, page: int = 0, current_score: int = -1):
         padding_y = 20

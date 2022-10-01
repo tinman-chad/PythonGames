@@ -83,7 +83,6 @@ while True:
 
 		if event.type == pygame.TEXTINPUT:
 			if game_state == 4:
-				print(event.__dict__)
 				key_pressed = event.text
 		elif event.type == pygame.KEYUP and event.key == pygame.K_BACKSPACE:
 			if game_state == 4:
@@ -92,7 +91,7 @@ while True:
 			if game_state == 4:
 				key_pressed = '\r'
 		elif event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-			if game_state == 0 or game_state == 2 or game_state == 5:
+			if game_state in [0, 2, 5]:
 				ship.lives = 3
 				ship.score = 0
 				laser_group.empty()
