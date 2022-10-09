@@ -1,6 +1,6 @@
 import pygame
 import random
-from components.shapes import shapes
+from components.shapes import *
 from components.piece import Piece
 from time import sleep
 
@@ -68,8 +68,8 @@ def is_lost(positions):
     return False
 
 def get_shape():
-    shape = random.choice(shapes.shapes)
-    color = random.choice(shapes.shape_colors)
+    shape = random.choice(shape_list)
+    color = random.choice(shape_colors)
     return Piece(5, 0, shape, color)
 
 def draw_text_middle(text, size, color, surface):

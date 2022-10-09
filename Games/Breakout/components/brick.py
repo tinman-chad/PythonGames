@@ -1,5 +1,5 @@
 import pygame
-from ball import Ball
+from components.ball import Ball
 
 class Brick:
     def __init__(self, x: int, y: int, width: int, heigh: int, colors: tuple) -> None:
